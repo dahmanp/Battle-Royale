@@ -17,7 +17,6 @@ public class CameraController : MonoBehaviour
 
     private float rotX;
     private float rotY;
-
     private bool isSpectator;
 
     // Start is called before the first frame update
@@ -45,6 +44,7 @@ public class CameraController : MonoBehaviour
             float x = Input.GetAxis("Horizontal");
             float z = Input.GetAxis("Vertical");
             float y = 0;
+
             if (Input.GetKey(KeyCode.E))
                 y = 1;
             else if (Input.GetKey(KeyCode.Q))
