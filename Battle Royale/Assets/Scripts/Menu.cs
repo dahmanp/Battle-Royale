@@ -41,6 +41,10 @@ public class Menu : MonoBehaviourPunCallbacks, ILobbyCallbacks
         if (PhotonNetwork.InRoom)
         {
             // go to the lobby
+            SetScreen(lobbyScreen);
+            UpdateLobbyUI();
+
+            Debug.Log(PhotonNetwork.CurrentRoom.Name);
             // make the room visible
             PhotonNetwork.CurrentRoom.IsVisible = true;
             PhotonNetwork.CurrentRoom.IsOpen = true;
@@ -181,7 +185,6 @@ public class Menu : MonoBehaviourPunCallbacks, ILobbyCallbacks
     public override void OnRoomListUpdate(List<RoomInfo> allRooms)
     {
         // go to the lobby
-        SetScreen(lobbyScreen);
-        UpdateLobbyUI();
+        roomList = allRooms;
     }
 }
