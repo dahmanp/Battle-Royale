@@ -242,7 +242,7 @@ MonoBehaviour:
   maxHp: 100
   kills: 0
   dead: 0
-  mr: {fileID: 71425036702420660}
+  mr: {fileID: 0}
   weapon: {fileID: 2208044547980412909}
 --- !u!114 &1396631119573922602
 MonoBehaviour:
