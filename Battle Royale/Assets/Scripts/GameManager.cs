@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviourPun
     public Transform[] spawnPoints;
     public int alivePlayers;
 
+    public float postGameTime;
+
     private int playersInGame;
 
     // instance
@@ -23,6 +25,25 @@ public class GameManager : MonoBehaviourPun
     {
         instance = this;
     }
+
+    public void CheckWinCondition()
+    {
+        if (alivePlayers == 1)
+            photonView.RPC("WinGame", RpcTarget.All, players.First(x => !x.dead).id);
+    }
+
+    [PunRPC]
+    void WinGame(int winningPlayer)
+    {
+        // set the UI win text
+        GameUI.instance.SetWinText(GetPlayer(winningPlayer).photonPlayer.NickName);
+        Invoke("GoBackToMenu", postGameTime);
+    }
+    void GoBackToMenu()
+    {
+        NetworkManager.instance.ChangeScene("Menu");
+    }
+
 
     void Start()
     {
@@ -42,8 +63,29 @@ public class GameManager : MonoBehaviourPun
     [PunRPC]
     void SpawnPlayer()
     {
-        GameObject playerObj = PhotonNetwork.Instantiate(playerPrefabLocation, spawnPoints[Random.Range(0, spawnPoints.Length)].position, Quaternion.identity);
-        // initialize the player for all other players
+        GameObject playerObj = PhotonNetwork.Instantiate(playerPrefabLocation, spawnPoints[Random.Range(0, spawnPoints.Length)].position, Quaternion.identity); playerObj.GetComponent<PlayerController>().photonView.RPC("Initialize", RpcTarget.All, PhotonNetwork.LocalPlayer);
         playerObj.GetComponent<PlayerController>().photonView.RPC("Initialize", RpcTarget.All, PhotonNetwork.LocalPlayer);
     }
+
+    public PlayerController GetPlayer(int playerId)
+    {
+        foreach (PlayerController player in players)
+        {
+            if (player != null && player.id == playerId)
+                return player;
+        }
+        return null;
+    }
+
+
+    public PlayerController GetPlayer(GameObject playerObject)
+    {
+        foreach (PlayerController player in players)
+        {
+            if (player != null && player.gameObject == playerObject)
+                return player;
+        }
+        return null;
+    }
+
 }

@@ -166,8 +166,7 @@ public class Menu : MonoBehaviourPunCallbacks, ILobbyCallbacks
 
     GameObject CreateRoomButton()
     {
-        GameObject buttonObj = Instantiate(roomButtonPrefab, roomListContainer.transform)
-       ;
+        GameObject buttonObj = Instantiate(roomButtonPrefab, roomListContainer.transform);
         roomButtons.Add(buttonObj);
         return buttonObj;
     }
