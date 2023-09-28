@@ -77,8 +77,8 @@ public class PlayerController : MonoBehaviourPun
         {
             GameUI.instance.Initialize(this);
         }
-
     }
+
     [PunRPC]
     public void TakeDamage(int attackerId, int damage)
     {
