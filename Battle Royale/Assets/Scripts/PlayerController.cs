@@ -28,12 +28,13 @@ public class PlayerController : MonoBehaviourPun
 
     void Update()
     {
+        if (!photonView.IsMine || dead)
+            return;
+
         if (Input.GetKeyDown(KeyCode.Space))
             TryJump();
 
         Move();
-        if (!photonView.IsMine || dead)
-            return;
 
         if (Input.GetMouseButtonDown(0))
             weapon.TryShoot();
