@@ -22,16 +22,16 @@ public class PlayerController : MonoBehaviourPun
     public bool dead;
     private bool flashingDamage;
     public MeshRenderer mr;
-
     public PlayerWeapon weapon;
+
     private int curAttackerId;
 
     void Update()
     {
-        Move();
         if (Input.GetKeyDown(KeyCode.Space))
             TryJump();
 
+        Move();
         if (!photonView.IsMine || dead)
             return;
 
